@@ -103,13 +103,14 @@ const handleExplanation = async (component: string, question?: string) => {
    npm run build
    ```
 
-3. **Deployment to Buildship.com**
-   ```bash
-   # Login to Buildship CLI
-   buildship login
-   # Deploy application
-   buildship deploy
-   ```
+3. Deployment to Vercel (since Buildship was not used)
+Deploy to Vercel:
+
+Go to Vercel and connect your GitHub repository.
+
+Vercel will automatically deploy your app and provide you with a live URL.
+
+Alternatively, you can trigger a deployment manually via the Vercel dashboard.
 
 4. **Post-Deployment**
    - Configure custom domain (if applicable)
@@ -190,5 +191,7 @@ The application uses OpenAI's GPT API to generate explanations. The server endpo
    ```bash
    npm run build
    ```
-2. Deploy to Buildship.com following their deployment guidelines
+2. Follow the Vercel Deployment guide.
+
+Connect your GitHub repo to Vercel and trigger the deployment.
 
