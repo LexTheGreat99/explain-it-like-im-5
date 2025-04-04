@@ -47,14 +47,16 @@
           </div>
 
           <!-- Right Column -->
-          <div class="md:pl-8 md:mt-32">
-            <ChatBox 
-              class="floating-card" 
-              :selected-component="selectedComponent"
-              :response="response"
-              :is-loading="isLoading"
-              @follow-up="handleFollowUp"
-            />
+          <div class="md:pl-8 md:mt-32 flex justify-center">
+            <div class="max-w-[600px] w-full">
+              <ChatBox 
+                class="bg-[#D4C9BE] rounded-[35px] shadow-xl border border-[#123458]/10 p-6" 
+                :selected-component="selectedComponent"
+                :response="response"
+                :is-loading="isLoading"
+                @follow-up="handleFollowUp"
+              />
+            </div>
           </div>
         </div>
       </div>
