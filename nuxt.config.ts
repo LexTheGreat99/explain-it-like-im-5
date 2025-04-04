@@ -1,11 +1,19 @@
-import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
-  compatibilityDate: "2024-11-01",
+  runtimeConfig: {
+    // Private keys that are server-side only
+    openaiApiKey: process.env.OPENAI_API_KEY,
+  },
+
+  compatibilityDate: "2025-04-03",
+
+  modules: ['nuxt-icon'],
+  
   devtools: { enabled: true },
   css: ['~/assets/css/main.css'],
-  vite: {
-    plugins: [
-      tailwindcss(),
-    ],
+  postcss: {
+    plugins: {
+      '@tailwindcss/postcss': {},
+      autoprefixer: {},
+    },
   },
 });

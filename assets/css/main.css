@@ -1,1 +1,120 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 39 13% 93%;    /* #F1EFEC */
+    --foreground: 220 66% 21%;   /* #123458 */
+    --card: 33 19% 79%;          /* #D4C9BE */
+    --card-foreground: 220 66% 21%;
+    --popover: 33 19% 79%;
+    --popover-foreground: 220 66% 21%;
+    --primary: 220 66% 21%;      /* #123458 */
+    --primary-foreground: 39 13% 93%;
+    --secondary: 33 19% 79%;     /* #D4C9BE */
+    --secondary-foreground: 220 66% 21%;
+    --muted: 33 19% 79%;
+    --muted-foreground: 220 66% 31%;
+    --accent: 220 66% 21%;
+    --accent-foreground: 39 13% 93%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 39 13% 93%;
+    --border: 33 19% 79%;
+    --input: 33 19% 79%;
+    --ring: 220 66% 21%;
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 0 0% 1%;       /* #030303 */
+    --foreground: 39 13% 93%;    /* #F1EFEC */
+    --card: 220 66% 21%;         /* #123458 */
+    --card-foreground: 39 13% 93%;
+    --popover: 220 66% 21%;
+    --popover-foreground: 39 13% 93%;
+    --primary: 33 19% 79%;       /* #D4C9BE */
+    --primary-foreground: 220 66% 21%;
+    --secondary: 220 66% 21%;    /* #123458 */
+    --secondary-foreground: 39 13% 93%;
+    --muted: 220 66% 21%;
+    --muted-foreground: 33 19% 89%;
+    --accent: 33 19% 79%;
+    --accent-foreground: 220 66% 21%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 39 13% 93%;
+    --border: 220 66% 21%;
+    --input: 220 66% 21%;
+    --ring: 33 19% 79%;
+  }
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    background: linear-gradient(135deg, #F1EFEC 0%, #D4C9BE 100%);
+  }
+}
+
+@layer components {
+  .gradient-blob {
+    position: absolute;
+    border-radius: 9999px;
+    opacity: 0.5;
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    background: radial-gradient(circle, var(--blob-color) 0%, transparent 70%);
+  }
+  
+  .sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 4rem;
+    background-color: hsl(var(--card));
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-right: 1px solid hsl(var(--border));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1rem 0;
+    gap: 1rem;
+  }
+
+  .main-content {
+    margin-left: 4rem;
+    padding: 2rem;
+    min-height: 100vh;
+  }
+
+  .floating-card {
+    background-color: hsl(var(--card));
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 1rem;
+    box-shadow: 0 10px 15px -3px rgb(18 52 88 / 0.1), 0 4px 6px -4px rgb(18 52 88 / 0.1);
+    padding: 1.5rem;
+    border: 1px solid hsl(var(--border));
+    animation: float 6s ease-in-out infinite;
+  }
+
+  .no-float {
+    animation: none !important;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
