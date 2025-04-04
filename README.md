@@ -11,6 +11,118 @@ An interactive web application that explains complex system components in simple
 - Dark mode support
 - Loading states and error handling
 
+## 🏗️ Architecture Overview
+
+The application follows a modern, component-based architecture:
+
+### Frontend Layer
+- **Vue 3 Components**: Modular, reusable UI components
+- **Nuxt 3 Framework**: Server-side rendering and routing
+- **State Management**: Vue 3 Composition API with refs and reactive state
+- **UI Components**: Custom-built components with Tailwind CSS
+
+### Backend Layer
+- **Nuxt Server Routes**: API endpoint handling
+- **OpenAI Integration**: GPT API communication
+- **Error Handling**: Comprehensive error management
+- **Rate Limiting**: Request throttling for API protection
+
+### Data Flow
+1. User interaction triggers component state changes
+2. State changes invoke API calls through server routes
+3. Server processes requests and communicates with OpenAI
+4. Responses are streamed back to the UI
+5. UI updates reactively with new data
+
+## 🛠️ Vue + Nuxt Structure
+
+```
+├── components/
+│   ├── ChatBox.vue         # Handles AI responses and follow-ups
+│   └── ComponentSelector.vue # Manages component selection UI
+├── pages/
+│   ├── index.vue          # Landing page with main interface
+│   └── components.vue     # Component exploration page
+├── server/
+│   └── api/
+│       └── explain.ts     # OpenAI API integration
+├── composables/           # Shared composition functions
+├── utils/                 # Helper functions
+└── public/               # Static assets
+```
+
+### Component Relationships
+- `pages/*.vue` → Top-level route components
+- `ComponentSelector.vue` → Emits selection events
+- `ChatBox.vue` → Receives and displays AI responses
+- `explain.ts` → Handles API communication
+
+## 🤖 GPT Integration
+
+### Implementation
+```typescript
+// server/api/explain.ts
+const handleExplanation = async (component: string, question?: string) => {
+  const prompt = question 
+    ? `Follow-up question about ${component}: ${question}`
+    : `Explain ${component} in simple terms`;
+    
+  const response = await openai.createCompletion({
+    model: "gpt-3.5-turbo",
+    prompt,
+    temperature: 0.7,
+    max_tokens: 500
+  });
+  
+  return response.choices[0].text;
+};
+```
+
+### Features
+- Dynamic prompt generation
+- Context-aware follow-up handling
+- Error recovery
+- Response streaming
+- Rate limiting implementation
+
+## 📦 Deployment Steps
+
+1. **Environment Setup**
+   ```bash
+   # Create production environment file
+   cp .env.example .env.production
+   # Set production variables
+   nano .env.production
+   ```
+
+2. **Application Build**
+   ```bash
+   # Install dependencies
+   npm install
+   # Build for production
+   npm run build
+   ```
+
+3. **Deployment to Buildship.com**
+   ```bash
+   # Login to Buildship CLI
+   buildship login
+   # Deploy application
+   buildship deploy
+   ```
+
+4. **Post-Deployment**
+   - Configure custom domain (if applicable)
+   - Set up SSL certificates
+   - Configure environment variables
+   - Verify API connections
+
+5. **Monitoring**
+   - Check server logs
+   - Monitor API usage
+   - Track error rates
+   - Review performance metrics
+
 ## 🛠️ Tech Stack
 
 - **Frontend Framework**: Vue 3 + Nuxt 3
@@ -80,16 +192,3 @@ The application uses OpenAI's GPT API to generate explanations. The server endpo
    ```
 2. Deploy to Buildship.com following their deployment guidelines
 
-## 🤝 Contributing
-
-Feel free to submit issues and enhancement requests!
-
-## 📄 License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## 🙏 Acknowledgments
-
-- OpenAI for providing the GPT API
-- Nuxt.js team for the amazing framework
-- The Vue.js community for their excellent documentation and support
