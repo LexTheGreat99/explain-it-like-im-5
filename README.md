@@ -195,3 +195,35 @@ The application uses OpenAI's GPT API to generate explanations. The server endpo
 
 Connect your GitHub repo to Vercel and trigger the deployment.
 
+## 🛡️ Security Measures
+
+This application allows users to provide their own OpenAI API keys, which are handled with several security measures:
+
+### API Key Handling
+- **Never Exposed**: API keys are never exposed in the frontend code or stored in localStorage
+- **Session-Only Storage**: Keys are stored in memory only for the duration of the session
+- **HTTPS Only**: All API requests are made server-side over HTTPS
+- **Key Validation**: API keys are validated for correct format on both client and server
+- **No Logging**: Keys are never logged in server logs or console
+- **Error Sanitization**: API key-related errors are sanitized to prevent leakage
+
+### Rate Limiting
+- IP-based rate limiting to prevent abuse
+- Maximum of 10 requests per minute per IP address
+- Clear error messages when rate limits are exceeded
+
+### Implementation Details
+1. **Client-Side**:
+   - Keys are validated with regex pattern matching
+   - Keys are stored in reactive refs, not persisted to localStorage
+   - Input fields are cleared after submission
+   - Only used for authenticated API requests
+
+2. **Server-Side**:
+   - Keys are passed via secure headers
+   - Server validates key format before making OpenAI requests
+   - Rate limiting prevents abuse via stolen or shared keys
+   - Keys are never logged, even in error conditions
+
+This ensures that user-provided API keys remain secure and are handled responsibly throughout the application.
+
